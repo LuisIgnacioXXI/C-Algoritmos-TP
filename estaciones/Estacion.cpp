@@ -1,4 +1,5 @@
 #include "Estacion.h"
+#include <iostream>
 
 Estacion::Estacion(string codigo, string nombre, string barrio, int capacidadAnclajes, int cantidadBicisDisponibles) {
     this->codigo = codigo;
@@ -9,24 +10,31 @@ Estacion::Estacion(string codigo, string nombre, string barrio, int capacidadAnc
 }
 
 string Estacion:: getCodigo() {
-    return this->codigo;
+    return codigo;
 }
 
 string Estacion::getNombre() {
-    return this->nombre;
+    return nombre;
 }
 
 string Estacion::getBarrio() {
-    return this->barrio;
+    return barrio;
 }
 
 int Estacion::getCapacidadAnclajes(){
-    return this->capacidadAnclajes;
+    return capacidadAnclajes;
 }
 
 int Estacion::getCantidadBicisDisponibles(){
-    return this->cantidadBicisDisponibles;
+    return cantidadBicisDisponibles;
 }
 
-
+void Estacion::mostrarInformacion() {
+    cout << "ESTACION: " << endl;
+    cout << "Codigo: " << codigo << endl;
+    cout << "Nombre: " << nombre << endl;
+    cout << "Barrio: " << barrio << endl;
+    cout << "Capacidad de anclajes: " << capacidadAnclajes << endl;
+    cout << "Bicicletas disponibles: " << cantidadBicisDisponibles << endl;
+}
 

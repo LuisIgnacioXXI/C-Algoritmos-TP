@@ -18,6 +18,8 @@ class Estacion {
         string getBarrio();
         int getCapacidadAnclajes();
         int getCantidadBicisDisponibles();
+
+        void mostrarInformacion();
 };
 
 

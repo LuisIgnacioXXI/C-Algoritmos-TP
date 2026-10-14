@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Compilar TP Bicicletas",
+            "command": "$archivos = Get-ChildItem -Path '${workspaceFolder}' -Filter '*.cpp' -Recurse | Where-Object { $_.FullName -notmatch '\\\\(\\.vscode|build|bin|obj)\\\\' } | ForEach-Object { $_.FullName }; if ($archivos.Count -eq 0) { throw 'No se encontraron archivos .cpp' }; & 'C:\\msys64\\ucrt64\\bin\\g++.exe' -g $archivos -o '${workspaceFolder}\\main.exe'; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "shell": {
+                    "executable": "powershell.exe",
+                    "args": [
+                        "-NoProfile",
+                        "-ExecutionPolicy",
+                        "Bypass",
+                        "-Command"
+                    ]
+                }
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
