@@ -15,6 +15,8 @@ private:
     int duracionMin;
 
 public:
+    Viaje(); // Constructor por defecto necesario para arreglos dinámicos (new Viaje[N])
+
     Viaje(int viajeId, int biciId, int dniUsuario, string estacionOrigen, string estacionDestino, int fecha, int duracionMin);
 
     int getViajeId();
@@ -24,6 +26,7 @@ public:
     string getEstacionDestino();
     int getFecha();
     int getDuracionMin();
+    
 };
 
 #endif

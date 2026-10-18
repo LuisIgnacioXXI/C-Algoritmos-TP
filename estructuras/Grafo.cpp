@@ -1,7 +1,5 @@
-
 #include "Grafo.h"
 #include <iostream>
-using namespace std;
 
 Grafo::Grafo() : estaciones(nullptr) {}
 
@@ -31,7 +29,6 @@ Grafo::NodoEstacion* Grafo::buscarNodo(const string& codigo) {
         }
         actual = actual->siguiente;
     }
-
     return nullptr;
 }
 
@@ -39,7 +36,6 @@ bool Grafo::agregarEstacion(const string& codigo) {
     if (buscarNodo(codigo) != nullptr) {
         return false;
     }
-
     NodoEstacion* nueva = new NodoEstacion(codigo);
     nueva->siguiente = estaciones;
     estaciones = nueva;
@@ -47,8 +43,7 @@ bool Grafo::agregarEstacion(const string& codigo) {
     return true;
 }
 
-bool Grafo::agregarConexion(const string& origen,
-                            const string& destino) {
+bool Grafo::agregarConexion(const string& origen, const string& destino) {
     if (origen == destino) {
         return false;
     }
@@ -93,7 +88,6 @@ void Grafo::mostrarConexiones() {
             if (adyacente->siguiente != nullptr) {
                 cout << ", ";
             }
-
             adyacente = adyacente->siguiente;
         }
 
@@ -106,8 +100,7 @@ void Grafo::caminoMasCorto(const string& origen,
                            const string& destino) {
     if (buscarNodo(origen) == nullptr ||
         buscarNodo(destino) == nullptr) {
-        cout << "Error: alguna estacion no existe en el grafo."
-             << endl;
+        cout << "Error: alguna estacion no existe en el grafo" << endl;
         return;
     }
 
@@ -157,8 +150,7 @@ void Grafo::caminoMasCorto(const string& origen,
             }
 
             if (!yaVisitada) {
-                visitadas[cantidadVisitadas] =
-                    vecino->codigoEstacion;
+                visitadas[cantidadVisitadas] = vecino->codigoEstacion;
                 predecesoras[cantidadVisitadas] = codigoActual;
                 cantidadVisitadas++;
 
@@ -211,9 +203,9 @@ void Grafo::caminoMasCorto(const string& origen,
         cout << "Cantidad de tramos: " << longitud - 1 << endl;
 
         delete[] camino;
-    } else {
-        cout << "No existe un camino entre "
-             << origen << " y " << destino << "." << endl;
+    }
+    else {
+        cout << "No existe un camino entre " << origen << " y " << destino << endl;
     }
 
     delete[] visitadas;
@@ -245,7 +237,8 @@ bool Grafo::eliminarEstacion(const string& codigo) {
             if (vecino->codigoEstacion == codigo) {
                 if (anteriorVecino == nullptr) {
                     otra->adyacentes = vecino->siguiente;
-                } else {
+                } 
+                else {
                     anteriorVecino->siguiente = vecino->siguiente;
                 }
 
@@ -262,7 +255,8 @@ bool Grafo::eliminarEstacion(const string& codigo) {
 
     if (anterior == nullptr) {
         estaciones = actual->siguiente;
-    } else {
+    } 
+    else {
         anterior->siguiente = actual->siguiente;
     }
 

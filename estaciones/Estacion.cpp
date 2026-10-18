@@ -9,7 +9,7 @@ Estacion::Estacion(string codigo, string nombre, string barrio, int capacidadAnc
     this->cantidadBicisDisponibles = cantidadBicisDisponibles;
 }
 
-string Estacion:: getCodigo() {
+string Estacion::getCodigo() {
     return codigo;
 }
 
@@ -36,5 +36,31 @@ void Estacion::mostrarInformacion() {
     cout << "Barrio: " << barrio << endl;
     cout << "Capacidad de anclajes: " << capacidadAnclajes << endl;
     cout << "Bicicletas disponibles: " << cantidadBicisDisponibles << endl;
+}
+
+void Estacion::encolarUsuario(int dniUsuario) {
+    colaEspera.encolar(dniUsuario);
+}
+
+void Estacion::desencolarUsuario() {
+    colaEspera.desencolar();
+}
+
+int Estacion::obtenerUsuarioEnEspera() {
+    return colaEspera.frente();
+}
+
+bool Estacion::hayUsuariosEsperando() {
+    return !colaEspera.vacia();
+}
+
+void Estacion::retirarBicicleta() {
+    if (cantidadBicisDisponibles > 0) {
+        cantidadBicisDisponibles--;
+    }
+}
+
+void Estacion::agregarBicicletaDisponible() {
+    cantidadBicisDisponibles++;
 }
 

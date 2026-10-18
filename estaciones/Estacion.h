@@ -1,29 +1,38 @@
-#pragma once
+
+#ifndef ESTACION_H
+#define ESTACION_H
 
 #include <string>
+#include "../estructuras/Cola.h"
 
 using namespace std;
 
 class Estacion {
     private:
-        std::string codigo;
-        std::string nombre;
-        std::string barrio;
+        string codigo;
+        string nombre;
+        string barrio;
         int capacidadAnclajes;
         int cantidadBicisDisponibles;
+        Cola<int> colaEspera;
 
     public:
         Estacion(string codigo, string nombre, string barrio, int capacidadAnclajes, int bicisDisponibles);
 
-        std::string getCodigo();
-        std::string getNombre();
-        std::string getBarrio();
+        string getCodigo();
+        string getNombre();
+        string getBarrio();
         int getCapacidadAnclajes();
         int getCantidadBicisDisponibles();
-
         void mostrarInformacion();
-        
+
+        void encolarUsuario(int dniUsuario);
+        void desencolarUsuario();
+        int obtenerUsuarioEnEspera();
+        bool hayUsuariosEsperando();
+        void retirarBicicleta();
+        void agregarBicicletaDisponible();
 };
 
-
+#endif
 

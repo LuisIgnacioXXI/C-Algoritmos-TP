@@ -1,7 +1,7 @@
 #ifndef TABLA_HASH_ESTACIONES_H
 #define TABLA_HASH_ESTACIONES_H
 
-#include "Estacion.h"
+#include "../estaciones/Estacion.h"
 
 class TablaHashEstaciones {
 private:

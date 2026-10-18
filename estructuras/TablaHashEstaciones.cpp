@@ -1,4 +1,3 @@
-
 #include "TablaHashEstaciones.h"
 #include <iostream>
 
@@ -144,7 +143,7 @@ void TablaHashEstaciones::mostrarTodas() {
 
 void TablaHashEstaciones::listarPorCapacidad() {
     if (cantidad == 0) {
-        cout << "No hay estaciones cargadas." << endl;
+        cout << "No hay estaciones cargadas" << endl;
         return;
     }
 
@@ -185,7 +184,7 @@ void TablaHashEstaciones::listarPorCapacidad() {
 
 void TablaHashEstaciones::listarPorBicisDisponibles() {
     if (cantidad == 0) {
-        cout << "No hay estaciones cargadas." << endl;
+        cout << "No hay estaciones cargadas" << endl;
         return;
     }
 
@@ -228,36 +227,27 @@ void TablaHashEstaciones::listarPorBicisDisponibles() {
 void TablaHashEstaciones::listarBajaOcupacion() {
     bool encontrada = false;
 
-    cout << "Estaciones con menos del 20% de ocupacion:"
-         << endl;
+    cout << "Estaciones con menos del 20% de ocupacion:" << endl;
 
     for (int i = 0; i < capacidad; i++) {
         Nodo* actual = tabla[i];
 
         while (actual != nullptr) {
             Estacion* estacion = actual->estacion;
-
-            double ocupacion =
-                static_cast<double>(
-                    estacion->getCantidadBicisDisponibles()
-                ) / estacion->getCapacidadAnclajes();
+            double ocupacion = static_cast<double>(estacion->getCantidadBicisDisponibles()) / estacion->getCapacidadAnclajes();
 
             if (ocupacion < 0.20) {
                 estacion->mostrarInformacion();
-                cout << "Ocupacion: "
-                     << ocupacion * 100 << "%" << endl;
+                cout << "Ocupacion: " << ocupacion * 100 << "%" << endl;
                 cout << endl;
-
                 encontrada = true;
             }
-
             actual = actual->siguiente;
         }
     }
 
     if (!encontrada) {
-        cout << "No hay estaciones con baja ocupacion."
-             << endl;
+        cout << "No hay estaciones con baja ocupacion" << endl;
     }
 }
 

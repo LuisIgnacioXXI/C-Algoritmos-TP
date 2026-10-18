@@ -1,5 +1,15 @@
 #include "Viaje.h"
 
+Viaje::Viaje() {
+    viajeId = 0;
+    biciId = 0;
+    dniUsuario = 0;
+    estacionOrigen = "";
+    estacionDestino = "";
+    fecha = 0;
+    duracionMin = 0;
+}
+
 Viaje::Viaje(int viajeId, int biciId, int dniUsuario, string estacionOrigen, string estacionDestino, int fecha, int duracionMin) {
     this->viajeId = viajeId;
     this->biciId = biciId;

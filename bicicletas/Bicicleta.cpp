@@ -1,5 +1,14 @@
 #include "Bicicleta.h"
 
+Bicicleta::Bicicleta() {
+    biciId = 0;
+    codigoEstacion = "";
+    tipo = "";
+    estado = "Averiada";
+    kilometros = 0;
+    prioridad = 3;
+}
+
 Bicicleta::Bicicleta(int biciId, string codigoEstacion, string tipo, string estado, int kilometros) {
     this->biciId = biciId;
     this->codigoEstacion = codigoEstacion;
@@ -28,3 +37,18 @@ int Bicicleta::getKilometros() {
     return kilometros;
 }
 
+int Bicicleta::getPrioridad(){
+    return prioridad;
+}
+
+void Bicicleta::setEstado(string nuevoEstado) {
+    estado = nuevoEstado;
+}
+
+void Bicicleta::setCodigoEstacion(string nuevoCodigo) {
+    codigoEstacion = nuevoCodigo;
+}
+
+void Bicicleta::setPrioridad(int nuevaPrioridad){
+    prioridad = nuevaPrioridad;
+}

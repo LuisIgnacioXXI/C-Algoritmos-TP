@@ -1,0 +1,30 @@
+#ifndef SISTEMA_H
+#define SISTEMA_H
+
+#include "../viajes/Viaje.h"
+#include "../bicicletas/Bicicleta.h"
+#include "../estructuras/Vector.h"
+#include "../estructuras/TablaHashEstaciones.h"
+#include "../estructuras/Grafo.h"
+
+class Sistema {
+    private:
+        Vector<Viaje> viajes;
+        Vector<Bicicleta> bicicletas;
+        TablaHashEstaciones tablaEstaciones;
+        Grafo grafo;
+
+    public:
+        Sistema();
+
+        int contarViajesPorOrigenYFecha(string codigoEstacion, int fechaDesde, int fechaHasta);
+        void mostrarViajesPorDniUsuario(int dniUsuario);
+        void listarBicicletasParaRevision(int kilometrosMinimos);
+
+        void solicitarBicicleta(string codigoEstacion, int dniUsuario);
+        void devolverBicicleta(string codigoEstacion, int biciId);
+        void validarEstacion(Estacion* estacion);
+};
+
+#endif
+

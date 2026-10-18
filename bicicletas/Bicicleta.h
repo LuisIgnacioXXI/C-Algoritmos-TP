@@ -12,7 +12,10 @@ private:
     string estado;
     int kilometros;
 
+    int prioridad;
+
 public:
+    Bicicleta();
     Bicicleta(int biciId, string codigoEstacion, string tipo, string estado, int kilometros);
     
     int getBiciId();
@@ -20,6 +23,12 @@ public:
     string getTipo();
     string getEstado();
     int getKilometros();
+
+    int getPrioridad();
+
+    void setEstado(string nuevoEstado);
+    void setCodigoEstacion(string nuevoCodigo);
+    void setPrioridad(int nuevaPrioridad);
 };
 
 #endif

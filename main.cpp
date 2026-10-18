@@ -1,28 +1,44 @@
-
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <stdexcept>
+
+#include "estructuras/TablaHashEstaciones.h"
+#include "estructuras/Grafo.h"
+#include "estructuras/Vector.h"
+#include "estructuras/ColaPrioridad.h"
+
 #include "estaciones/Estacion.h"
-#include "estaciones/TablaHashEstaciones.h"
-#include "Grafo.h"
+#include "viajes/Viaje.h"
+#include "bicicletas/Bicicleta.h"
+#include "Sistemas/Sistema.h"
+#include "talleres/TallerReparaciones.h"
 
 using namespace std;
 
-bool cargarEstaciones(TablaHashEstaciones& tabla,
-                      const string& nombreArchivo) {
+
+
+#include <iostream>
+#include <stdexcept>
+#include "bicicletas/Bicicleta.h"
+#include "talleres/TallerReparaciones.h"
+
+using namespace std;
+
+
+bool cargarEstaciones(TablaHashEstaciones& tabla, const string& nombreArchivo) {
+
     ifstream archivo(nombreArchivo);
 
     if (!archivo.is_open()) {
-        cout << "Error: no se pudo abrir "
-             << nombreArchivo << endl;
+        cout << "Error: no se pudo abrir " << nombreArchivo << endl;
         return false;
     }
 
     string codigo, nombre, barrio;
     int capacidadAnclajes, bicisDisponibles;
 
-    while (archivo >> codigo >> nombre >> barrio
-                   >> capacidadAnclajes >> bicisDisponibles) {
+    while (archivo >> codigo >> nombre >> barrio >> capacidadAnclajes >> bicisDisponibles) {
         Estacion* estacion = new Estacion(
             codigo, nombre, barrio,
             capacidadAnclajes, bicisDisponibles
@@ -30,8 +46,7 @@ bool cargarEstaciones(TablaHashEstaciones& tabla,
 
         if (tabla.agregar(estacion)) {
         } else {
-            cout << "No se pudo agregar la estacion "
-                 << codigo << endl;
+            cout << "No se pudo agregar la estacion " << codigo << endl;
             delete estacion;
         }
     }
@@ -39,14 +54,12 @@ bool cargarEstaciones(TablaHashEstaciones& tabla,
     return true;
 }
 
-bool cargarGrafo(Grafo& grafo,
-                 TablaHashEstaciones& tabla,
-                 const string& nombreArchivo) {
+bool cargarGrafo(Grafo& grafo, TablaHashEstaciones& tabla, const string& nombreArchivo) {
+
     ifstream archivo(nombreArchivo);
 
     if (!archivo.is_open()) {
-        cout << "Error: no se pudo abrir "
-             << nombreArchivo << endl;
+        cout << "Error: no se pudo abrir " << nombreArchivo << endl;
         return false;
     }
 
@@ -54,20 +67,15 @@ bool cargarGrafo(Grafo& grafo,
 
     while (archivo >> origen >> destino) {
         if (tabla.buscar(origen) == nullptr) {
-            cout << "Error: no existe la estacion "
-                 << origen << endl;
+            cout << "Error: no existe la estacion " << origen << endl;
             continue;
         }
-
         if (tabla.buscar(destino) == nullptr) {
-            cout << "Error: no existe la estacion "
-                 << destino << endl;
+            cout << "Error: no existe la estacion " << destino << endl;
             continue;
         }
-
         if (!grafo.agregarConexion(origen, destino)) {
-            cout << "No se pudo agregar la conexion "
-                 << origen << " - " << destino << endl;
+            cout << "No se pudo agregar la conexion " << origen << " - " << destino << endl;
         }
     }
 
@@ -75,6 +83,8 @@ bool cargarGrafo(Grafo& grafo,
 }
 
 int main() {
+    
+    
     TablaHashEstaciones tabla(11);
     Grafo grafo;
 
@@ -87,9 +97,7 @@ int main() {
 
         if (estacion != nullptr) {
             if (!grafo.agregarEstacion(estacion->getCodigo())) {
-                cout << "Error al agregar la estacion "
-                     << estacion->getCodigo()
-                     << " al grafo." << endl;
+                cout << "Error al agregar la estacion " << estacion->getCodigo() << " al grafo." << endl;
                 return 1;
             }
         }
@@ -99,8 +107,7 @@ int main() {
         return 1;
     }
 
-    cout << "Cantidad de estaciones cargadas: "
-         << tabla.getCantidad() << endl;
+    cout << "Cantidad de estaciones cargadas: " << tabla.getCantidad() << endl;
 
     cout << "\nTodas las estaciones:" << endl;
     tabla.mostrarTodas();
@@ -125,7 +132,8 @@ int main() {
 
     if (encontrada != nullptr) {
         encontrada->mostrarInformacion();
-    } else {
+    } 
+    else {
         cout << "Estacion no encontrada." << endl;
     }
 
