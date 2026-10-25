@@ -14,6 +14,8 @@ private:
 
     int prioridad;
 
+    bool prestada;
+
 public:
     Bicicleta();
     Bicicleta(int biciId, string codigoEstacion, string tipo, string estado, int kilometros);
@@ -29,6 +31,9 @@ public:
     void setEstado(string nuevoEstado);
     void setCodigoEstacion(string nuevoCodigo);
     void setPrioridad(int nuevaPrioridad);
+
+    bool getPrestada();
+    void setPrestada(bool prestada);
 };
 
 #endif

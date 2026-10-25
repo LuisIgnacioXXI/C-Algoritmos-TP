@@ -30,7 +30,7 @@ class Vector {
             delete[] datos;
         }
 
-        void agregar(T& elemento) {
+        void agregar(T elemento) {
             if (tamanio == capacidad) {
                 redimensionar();
             }

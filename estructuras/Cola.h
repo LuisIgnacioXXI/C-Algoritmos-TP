@@ -12,7 +12,7 @@ class Cola {
     public:
         Cola() {}
 
-        void encolar(T& elemento) {
+        void encolar(T elemento) {
             elementos.agregar(elemento);
         }
 

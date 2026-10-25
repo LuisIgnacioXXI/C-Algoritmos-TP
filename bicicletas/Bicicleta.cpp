@@ -7,6 +7,7 @@ Bicicleta::Bicicleta() {
     estado = "Averiada";
     kilometros = 0;
     prioridad = 3;
+    prestada = false;
 }
 
 Bicicleta::Bicicleta(int biciId, string codigoEstacion, string tipo, string estado, int kilometros) {
@@ -15,6 +16,7 @@ Bicicleta::Bicicleta(int biciId, string codigoEstacion, string tipo, string esta
     this->tipo = tipo;
     this->estado = estado;
     this->kilometros = kilometros;
+    this->prestada = false;
 }
 
 int Bicicleta::getBiciId() {
@@ -51,4 +53,12 @@ void Bicicleta::setCodigoEstacion(string nuevoCodigo) {
 
 void Bicicleta::setPrioridad(int nuevaPrioridad){
     prioridad = nuevaPrioridad;
+}
+
+bool Bicicleta::getPrestada() {
+    return prestada;
+}
+
+void Bicicleta::setPrestada(bool prestada) {
+    this->prestada = prestada;
 }

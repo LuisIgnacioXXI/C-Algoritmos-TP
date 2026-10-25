@@ -6,11 +6,12 @@
 #include "../estructuras/Vector.h"
 #include "../estructuras/TablaHashEstaciones.h"
 #include "../estructuras/Grafo.h"
+#include "../estructuras/ArbolBicicletas.h"
 
 class Sistema {
     private:
         Vector<Viaje> viajes;
-        Vector<Bicicleta> bicicletas;
+        ArbolBicicletas arbolBicicletas;
         TablaHashEstaciones tablaEstaciones;
         Grafo grafo;
 
@@ -24,6 +25,7 @@ class Sistema {
         void solicitarBicicleta(string codigoEstacion, int dniUsuario);
         void devolverBicicleta(string codigoEstacion, int biciId);
         void validarEstacion(Estacion* estacion);
+        void validarBicicleta(Bicicleta* bicicleta);
 };
 
 #endif

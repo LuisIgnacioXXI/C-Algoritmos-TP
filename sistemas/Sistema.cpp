@@ -53,85 +53,96 @@ void Sistema::mostrarViajesPorDniUsuario(int dniUsuario){
 
 
 void Sistema::listarBicicletasParaRevision(int kilometrosMinimos){
-    bool encontrado = false;
-    for (int i = 0; i < bicicletas.getTamanio(); i++) {
-        if (bicicletas[i].getKilometros() > kilometrosMinimos) {
-            encontrado = true;
-            cout << "ID bicicleta: " << bicicletas[i].getBiciId() << endl;
-            cout << "Kilometros: " << bicicletas[i].getKilometros() << endl;
-            cout << "Estado: " << bicicletas[i].getEstado() << endl;
-            cout << "-------------------" << endl;
-        }
-    }
-    if (!encontrado) {
-        cout << "No hay bicicletas que superen ese kilometraje" << endl;
-    }
+    arbolBicicletas.listarPorKilometros(kilometrosMinimos);
 }
-// Si hay (n) bicicletas almacenadas, el ciclo recorre todas una vez. Por lo tanto la complejidad temporal es O(n)
+
+// En el peor caso, se visitan las (n) bicicletas, de modo que la complejidad es O(n) 
+// se utiliza un ABB porque permite almacenar las bicicletas ordenadas por ID, buscarlas y listarlas en orden. 
+// Para filtrar por kilometraje, sin embargo, hay que recorrer todos sus nodos
 
 
 
 
-void Sistema::solicitarBicicleta(string codigoEstacion, int dniUsuario){
+void Sistema::solicitarBicicleta(string codigoEstacion, int dniUsuario) {
     Estacion* estacion = tablaEstaciones.buscar(codigoEstacion);
     validarEstacion(estacion);
 
-    if (estacion->getCantidadBicisDisponibles() == 0) {
+    if (estacion->hayUsuariosEsperando() || estacion->getCantidadBicisDisponibles() == 0) {
         estacion->encolarUsuario(dniUsuario);
-        cout << "No hay bicicletas disponibles" << endl;
-        cout << "Usuario agregado a la cola de espera" << endl;
+        cout << "Hay usuarios esperando, " << "se agrego el DNI " << dniUsuario << " a la cola" << endl;
         return;
     }
 
-    // Buscamos una bicicleta en buen estado en esa estacion
-    for (int i = 0; i < bicicletas.getTamanio(); i++) {
-        if (bicicletas[i].getCodigoEstacion() == codigoEstacion && bicicletas[i].getEstado() == "OK") {
-            estacion->retirarBicicleta();
-            cout << "Bicicleta entregada: " << bicicletas[i].getBiciId() << endl;
-            return;
-        }
+    Bicicleta* bicicleta = arbolBicicletas.buscarDisponibleEnEstacion(codigoEstacion);
+
+    if (bicicleta == nullptr) {
+        estacion->encolarUsuario(dniUsuario);
+        cout << "No hay bicicletas disponibles, " << "se agrego el DNI " << dniUsuario << " a la cola de espera" << endl;
+        return;
     }
-    cout << "No se encontro una bicicleta disponible" << endl;
+
+    bicicleta->setPrestada(true);
+    estacion->retirarBicicleta();
+
+    cout << "Bicicleta entregada: " << bicicleta->getBiciId() << endl;
 }
 
-/* Se utiliza una tabla hash para localizar la estación por su código en O(1) promedio. 
-Luego, se recorre el vector de bicicletas para encontrar una bicicleta en buen estado perteneciente a esa estación, 
-por lo que la complejidad temporal de la operación es O(n) en el peor caso */
-
+/* 
+   O(B) promedio para la tabla hash
+   la tabla hash permite encontrar rápidamente la estación por su código, mientras que el ABB
+   centraliza todas las bicicletas y permite buscarlas por ID. Como el árbol no está ordenado
+   por estación ni por disponibilidad, encontrar una bicicleta apta para retirar puede requerir
+   recorrer todos sus nodos
+*/
 
 void Sistema::devolverBicicleta(string codigoEstacion, int biciId) {
     Estacion* estacion = tablaEstaciones.buscar(codigoEstacion);
     validarEstacion(estacion);
-    
-    for (int i = 0; i < bicicletas.getTamanio(); i++) {
-        if (bicicletas[i].getBiciId() == biciId) {
 
-            bicicletas[i].setCodigoEstacion(codigoEstacion);
+    Bicicleta* bicicleta = arbolBicicletas.buscar(biciId);
+    validarBicicleta(bicicleta);
 
-            if (estacion->hayUsuariosEsperando()) {
-                int dniUsuario = estacion->obtenerUsuarioEnEspera();
-                estacion->desencolarUsuario();
-                cout << "Bicicleta asignada al usuario DNI: " << dniUsuario << endl;
-            } 
-            else {
-                bicicletas[i].setEstado("OK");
-                estacion->agregarBicicletaDisponible();
-                cout << "Bicicleta devuelta" << endl;
-            }
-            return;
-        }
+    if (!bicicleta->getPrestada()) {
+        cout << "La bicicleta no figura como prestada" << endl;
+        return;
     }
-    cout << "No se encontro la bicicleta" << endl;
+
+    bicicleta->setCodigoEstacion(codigoEstacion);
+
+    if (bicicleta->getEstado() == "Averiada") {
+        cout << "La bicicleta fue devuelta, pero esta averiada" << endl;
+        return;
+    }
+
+    if (estacion->hayUsuariosEsperando()) {
+        int dniUsuario = estacion->obtenerUsuarioEnEspera();
+        estacion->desencolarUsuario();
+
+        bicicleta->setPrestada(true);
+        cout << "Bicicleta " << biciId << " asignada al usuario DNI " << dniUsuario << endl;
+    } 
+    else {
+        bicicleta->setPrestada(false);
+        estacion->agregarBicicletaDisponible();
+        cout << "Bicicleta " << biciId << " devuelta y disponible en la estacion " << codigoEstacion << endl;
+    }
 }
 
-/* Se utiliza una tabla hash para localizar la estación y un vector para almacenar las bicicletas. 
-La búsqueda de la bicicleta por identificador requiere recorrer el vector, O(n) 
-Además, si hay usuarios esperando, la operación desencola al primero; como la cola actual utiliza un vector y desplaza los elementos
- al eliminar el primero puede llegar a O(n+q) */
+/*
+  Complejidad temporal: O(h+Q) en el peor caso, suponiendo búsqueda promedio O(1) en la tabla hash 
+  el ABB permite localizar la bicicleta devuelta por su ID, y la tabla hash permite localizar
+  la estación de destino. La cola respeta el orden de llegada de los usuarios, 
+  aunque su implementación actual con un vector puede hacer que desencolar cueste O(Q)
+*/
 
 void Sistema::validarEstacion(Estacion* estacion) {
     if (estacion == nullptr) {
-        throw runtime_error("La estacion no existe");
+        throw runtime_error("No se encontró la estacion");
     }
 }
 
+void Sistema::validarBicicleta(Bicicleta* bicicleta){
+    if (bicicleta == nullptr){
+        throw runtime_error("No se encontró la bicicleta");
+    }
+}
