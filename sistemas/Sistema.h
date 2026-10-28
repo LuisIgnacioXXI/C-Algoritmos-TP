@@ -7,11 +7,13 @@
 #include "../estructuras/TablaHashEstaciones.h"
 #include "../estructuras/Grafo.h"
 #include "../estructuras/ArbolBicicletas.h"
+#include "../talleres/TallerReparaciones.h"
 
 class Sistema {
     private:
         Vector<Viaje> viajes;
         ArbolBicicletas arbolBicicletas;
+        TallerReparaciones taller;
         TablaHashEstaciones tablaEstaciones;
         Grafo grafo;
 

@@ -14,14 +14,6 @@
 #include "Sistemas/Sistema.h"
 #include "talleres/TallerReparaciones.h"
 
-using namespace std;
-
-
-
-#include <iostream>
-#include <stdexcept>
-#include "bicicletas/Bicicleta.h"
-#include "talleres/TallerReparaciones.h"
 
 using namespace std;
 
