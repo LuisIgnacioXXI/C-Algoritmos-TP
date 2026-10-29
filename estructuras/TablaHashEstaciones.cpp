@@ -101,3 +101,17 @@ void TablaHashEstaciones::eliminar(string codigo) {
 }
 
 
+void TablaHashEstaciones::obtenerEstaciones(Vector<Estacion*>& estaciones) {
+    for (int i = 0; i < TAMANIO; i++) {
+        NodoHash* actual = tabla[i];
+
+        while (actual != nullptr) {
+            Estacion* estacion = actual->getEstacion();
+            estaciones.agregar(estacion);
+
+            actual = actual->getSiguiente();
+        }
+    }
+}
+
+

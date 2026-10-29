@@ -23,7 +23,8 @@ class Sistema {
         void mostrarEstacion(string codigo);
         void agregarEstacion(Estacion* estacion);
         void eliminarEstacion(string codigo);
-
+        void listarEstacionesOrdenadas(int criterio);
+        void listarEstacionesBajaOcupacion();
 
 
 

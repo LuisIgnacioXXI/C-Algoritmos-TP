@@ -30,6 +30,68 @@ void Sistema::eliminarEstacion(string codigo) {
 }
 
 
+void Sistema::listarEstacionesOrdenadas(int criterio) {
+    if (criterio != 1 && criterio != 2) {
+        cout << "Criterio de ordenamiento invalido" << endl;
+        return;
+    }
+
+    Vector<Estacion*> estaciones; 
+    tablaEstaciones.obtenerEstaciones(estaciones);
+
+    int tamanio = estaciones.getTamanio();
+
+     for (int i = tamanio - 1; i > 0; i--) { // Ordenamiento por Burbujeo (Bubble Sort)
+        for (int j = 0; j < i; j++) { 
+            int valorActual;
+            int valorSiguiente;
+
+            if (criterio == 1) {
+                valorActual = estaciones[j]->getCapacidadAnclajes();
+                valorSiguiente = estaciones[j + 1]->getCapacidadAnclajes();
+            } 
+            else {
+                valorActual = estaciones[j]->getCantidadBicisDisponibles();
+                valorSiguiente = estaciones[j + 1]->getCantidadBicisDisponibles();
+            }
+
+            if (valorActual > valorSiguiente) {
+                Estacion* auxiliar = estaciones[j];
+                estaciones[j] = estaciones[j + 1];
+                estaciones[j + 1] = auxiliar;
+            }
+        }
+    }
+
+    for (int i = 0; i < tamanio; i++) {
+        estaciones[i]->mostrarInformacion();
+    }
+}
+
+
+void Sistema::listarEstacionesBajaOcupacion() {
+    Vector<Estacion*> estaciones;
+    tablaEstaciones.obtenerEstaciones(estaciones);
+
+    for (int i = 0; i < estaciones.getTamanio(); i++) {
+        int bicisDisponibles = estaciones[i]->getCantidadBicisDisponibles();
+        int capacidad = estaciones[i]->getCapacidadAnclajes();
+
+        if (bicisDisponibles * 100 < capacidad * 20) {
+            estaciones[i]->mostrarInformacion();
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
 // Resolucion Ejercicio B
 
 int Sistema::contarViajesPorOrigenYFecha(string codigoEstacion, int fechaDesde, int fechaHasta){

@@ -2,8 +2,11 @@
 #define TABLA_HASH_ESTACIONES_H
 
 #include <iostream>
-#include "NodoHash.h"
 #include <string>
+
+#include "NodoHash.h"
+#include "Vector.h"
+#include "../estaciones/Estacion.h"
 
 using namespace std;
 
@@ -27,6 +30,8 @@ class TablaHashEstaciones {
         void insertar(Estacion* estacion);
         Estacion* buscar(string codigo);
         void eliminar(string codigo);
+
+        void obtenerEstaciones(Vector<Estacion*>& estaciones);
 
 };
 
