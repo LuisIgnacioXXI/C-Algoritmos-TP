@@ -20,6 +20,14 @@ class Sistema {
     public:
         Sistema();
 
+        void mostrarEstacion(string codigo);
+        void agregarEstacion(Estacion* estacion);
+        void eliminarEstacion(string codigo);
+
+
+
+
+        // Ejercicio B
         int contarViajesPorOrigenYFecha(string codigoEstacion, int fechaDesde, int fechaHasta);
         void mostrarViajesPorDniUsuario(int dniUsuario);
         void listarBicicletasParaRevision(int kilometrosMinimos);

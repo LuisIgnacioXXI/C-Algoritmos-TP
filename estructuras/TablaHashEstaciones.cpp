@@ -21,28 +21,33 @@ TablaHashEstaciones::~TablaHashEstaciones() {
     }
 }
 
+int TablaHashEstaciones::getCantidad() {
+    return cantidad;
+}
+
+int TablaHashEstaciones::getColisiones() {
+    return colisiones;
+}
+
+float TablaHashEstaciones::getFactorCarga() {
+    return static_cast<float>(cantidad) / TAMANIO;
+}
+
+
 int TablaHashEstaciones::funcionHash(string codigo) {
     int suma = 0;
-
     for (int i = 0; i < codigo.length(); i++) {
         suma += codigo[i];
     }
-
     return suma % TAMANIO;
 }
 
 void TablaHashEstaciones::insertar(Estacion* estacion) {
-    if (estacion == nullptr) {
+    if (estacion == nullptr || buscar(estacion->getCodigo()) != nullptr) {
         return;
     }
 
-    string codigo = estacion->getCodigo();
-
-    if (buscar(codigo) != nullptr) {
-        return;
-    }
-
-    int indice = funcionHash(codigo);
+    int indice = funcionHash(estacion->getCodigo());
 
     NodoHash* nuevo = new NodoHash(estacion);
 
@@ -57,29 +62,42 @@ void TablaHashEstaciones::insertar(Estacion* estacion) {
 }
 
 Estacion* TablaHashEstaciones::buscar(string codigo) {
+    Estacion* estacionEncontrada = nullptr;
     int indice = funcionHash(codigo);
     NodoHash* actual = tabla[indice];
 
-    while (actual != nullptr) {
+    while (actual != nullptr && estacionEncontrada == nullptr) {
         if (actual->getEstacion()->getCodigo() == codigo) {
-            return actual->getEstacion();
+            estacionEncontrada = actual->getEstacion();
         }
-
         actual = actual->getSiguiente();
     }
 
-    return nullptr;
+    return estacionEncontrada;
 }
 
-int TablaHashEstaciones::getCantidad() {
-    return cantidad;
+
+void TablaHashEstaciones::eliminar(string codigo) {
+    int indice = funcionHash(codigo);
+    NodoHash* actual = tabla[indice];
+    NodoHash* anterior = nullptr;
+
+    while (actual != nullptr && actual->getEstacion()->getCodigo() != codigo) {
+        anterior = actual;
+        actual = actual->getSiguiente();
+    }
+
+    if (actual != nullptr) {
+        if (anterior == nullptr) {
+            tabla[indice] = actual->getSiguiente();
+        } 
+        else {
+            anterior->setSiguiente(actual->getSiguiente());
+        }
+
+        delete actual;
+        cantidad--;
+    }
 }
 
-int TablaHashEstaciones::getColisiones() {
-    return colisiones;
-}
-
-float TablaHashEstaciones::getFactorCarga() {
-    return static_cast<float>(cantidad) / TAMANIO;
-}
 

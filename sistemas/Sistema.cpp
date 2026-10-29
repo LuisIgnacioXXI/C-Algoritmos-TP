@@ -4,6 +4,34 @@
 
 using namespace std;
 
+Sistema::Sistema(){};
+
+void Sistema::mostrarEstacion(string codigo) {
+    Estacion* estacion = tablaEstaciones.buscar(codigo);
+
+    if (estacion != nullptr) {
+        estacion->mostrarInformacion();
+    } 
+    else {
+        cout << "No se encontro una estacion con ese codigo" << endl;
+    }
+}
+
+void Sistema::agregarEstacion(Estacion* estacion) {
+    validarEstacion(estacion);
+    tablaEstaciones.insertar(estacion);
+}
+
+void Sistema::eliminarEstacion(string codigo) {
+    Estacion* estacion = tablaEstaciones.buscar(codigo);
+    validarEstacion(estacion);
+
+    tablaEstaciones.eliminar(codigo);
+}
+
+
+// Resolucion Ejercicio B
+
 int Sistema::contarViajesPorOrigenYFecha(string codigoEstacion, int fechaDesde, int fechaHasta){
     int contador = 0;
     for (int i = 0; i < viajes.getTamanio(); i++) {
