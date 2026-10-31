@@ -27,7 +27,11 @@ class Sistema {
 
 
 
+        void agregarViaje(Viaje viaje);
+        void agregarBicicleta(Bicicleta bicicleta);
+        
         // Ejercicio B
+
         int contarViajesPorOrigenYFecha(string codigoEstacion, int fechaDesde, int fechaHasta);
         void mostrarViajesPorDniUsuario(int dniUsuario);
         void listarBicicletasParaRevision(int kilometrosMinimos);

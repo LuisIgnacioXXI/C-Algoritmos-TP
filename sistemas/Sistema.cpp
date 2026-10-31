@@ -91,8 +91,16 @@ void Sistema::listarEstacionesBajaOcupacion() {
 
 
 
+void Sistema::agregarViaje(Viaje viaje) {
+    viajes.agregar(viaje);
+}
+
+void Sistema::agregarBicicleta(Bicicleta bicicleta) {
+    arbolBicicletas.insertar(bicicleta);
+}
 
 // Resolucion Ejercicio B
+
 
 int Sistema::contarViajesPorOrigenYFecha(string codigoEstacion, int fechaDesde, int fechaHasta){
     int contador = 0;
