@@ -5,28 +5,27 @@
 using namespace std;
 
 class Viaje {
-private:
-    int viajeId;
-    int biciId;
-    int dniUsuario;
-    string estacionOrigen;
-    string estacionDestino;
-    int fecha;
-    int duracionMin;
+    private:
+        int viajeId;
+        int biciId;
+        int dniUsuario;
+        string estacionOrigen;
+        string estacionDestino;
+        int fecha;
+        int duracionMin;
 
-public:
-    Viaje(); // Constructor por defecto necesario para arreglos dinámicos (new Viaje[N])
+    public:
+        Viaje(); // Constructor por defecto necesario para arreglos dinámicos (new Viaje[N])
 
-    Viaje(int viajeId, int biciId, int dniUsuario, string estacionOrigen, string estacionDestino, int fecha, int duracionMin);
+        Viaje(int viajeId, int biciId, int dniUsuario, string estacionOrigen, string estacionDestino, int fecha, int duracionMin);
 
-    int getViajeId();
-    int getBiciId();
-    int getDniUsuario();
-    string getEstacionOrigen();
-    string getEstacionDestino();
-    int getFecha();
-    int getDuracionMin();
-    
+        int getViajeId();
+        int getBiciId();
+        int getDniUsuario();
+        string getEstacionOrigen();
+        string getEstacionDestino();
+        int getFecha();
+        int getDuracionMin();
 };
 
 #endif

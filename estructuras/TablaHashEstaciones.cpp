@@ -1,4 +1,5 @@
 #include "TablaHashEstaciones.h"
+#include <cstddef>
 
 TablaHashEstaciones::TablaHashEstaciones() {
     cantidad = 0;
@@ -36,7 +37,7 @@ float TablaHashEstaciones::getFactorCarga() {
 
 int TablaHashEstaciones::funcionHash(string codigo) {
     int suma = 0;
-    for (int i = 0; i < codigo.length(); i++) {
+    for (size_t i = 0; i < codigo.length(); i++) {
         suma += codigo[i];
     }
     return suma % TAMANIO;

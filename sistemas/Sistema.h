@@ -15,7 +15,6 @@ class Sistema {
         ArbolBicicletas arbolBicicletas;
         TallerReparaciones taller;
         TablaHashEstaciones tablaEstaciones;
-        Grafo grafo;
 
     public:
         Sistema();

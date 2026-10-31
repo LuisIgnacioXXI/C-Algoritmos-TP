@@ -5,35 +5,35 @@
 using namespace std;
 
 class Bicicleta {
-private:
-    int biciId;
-    string codigoEstacion;
-    string tipo;
-    string estado;
-    int kilometros;
+    private:
+        int biciId;
+        string codigoEstacion;
+        string tipo;
+        string estado;
+        int kilometros;
 
-    int prioridad;
+        int prioridad;
 
-    bool prestada;
+        bool prestada;
 
-public:
-    Bicicleta();
-    Bicicleta(int biciId, string codigoEstacion, string tipo, string estado, int kilometros);
-    
-    int getBiciId();
-    string getCodigoEstacion();
-    string getTipo();
-    string getEstado();
-    int getKilometros();
+    public:
+        Bicicleta();
+        Bicicleta(int biciId, string codigoEstacion, string tipo, string estado, int kilometros);
+        
+        int getBiciId();
+        string getCodigoEstacion();
+        string getTipo();
+        string getEstado();
+        int getKilometros();
 
-    int getPrioridad();
+        int getPrioridad();
 
-    void setEstado(string nuevoEstado);
-    void setCodigoEstacion(string nuevoCodigo);
-    void setPrioridad(int nuevaPrioridad);
+        void setEstado(string nuevoEstado);
+        void setCodigoEstacion(string nuevoCodigo);
+        void setPrioridad(int nuevaPrioridad);
 
-    bool getPrestada();
-    void setPrestada(bool prestada);
+        bool getPrestada();
+        void setPrestada(bool prestada);
 };
 
 #endif
