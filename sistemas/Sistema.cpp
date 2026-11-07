@@ -99,6 +99,9 @@ void Sistema::agregarBicicleta(Bicicleta bicicleta) {
     arbolBicicletas.insertar(bicicleta);
 }
 
+
+
+
 // Resolucion Ejercicio B
 
 
@@ -113,8 +116,6 @@ int Sistema::contarViajesPorOrigenYFecha(string codigoEstacion, int fechaDesde, 
     }
     return contador;
 }
-// La complejidad es O(n), (n) es la cantidad de viajes: revisamos cada viaje una vez
-
 
 
 
@@ -139,12 +140,6 @@ void Sistema::mostrarViajesPorDniUsuario(int dniUsuario){
         cout << "No se encontraron viajes para ese DNI" << endl;
     }
 }
-/* Si hay (n) viajes registrados:
-  - Recorremos los (n) elementos una sola vez
-  - En cada iteración realizamos una comparación del DNI
-  - Cuando coincide, mostramos datos y sumamos la duración, operaciones de costo constante
-    Por lo tanto, la complejidad temporal es O(n). La razón para usar el vector es que necesitamos almacenar los viajes y recorrerlos secuencialmente
-*/
 
 
 
@@ -153,10 +148,6 @@ void Sistema::mostrarViajesPorDniUsuario(int dniUsuario){
 void Sistema::listarBicicletasParaRevision(int kilometrosMinimos){
     arbolBicicletas.listarPorKilometros(kilometrosMinimos);
 }
-
-// En el peor caso, se visitan las (n) bicicletas, de modo que la complejidad es O(n) 
-// se utiliza un ABB porque permite almacenar las bicicletas ordenadas por ID, buscarlas y listarlas en orden. 
-// Para filtrar por kilometraje, sin embargo, hay que recorrer todos sus nodos
 
 
 
@@ -185,13 +176,9 @@ void Sistema::solicitarBicicleta(string codigoEstacion, int dniUsuario) {
     cout << "Bicicleta entregada: " << bicicleta->getBiciId() << endl;
 }
 
-/* 
-   O(B) promedio para la tabla hash
-   la tabla hash permite encontrar rápidamente la estación por su código, mientras que el ABB
-   centraliza todas las bicicletas y permite buscarlas por ID. Como el árbol no está ordenado
-   por estación ni por disponibilidad, encontrar una bicicleta apta para retirar puede requerir
-   recorrer todos sus nodos
-*/
+
+
+
 
 void Sistema::devolverBicicleta(string codigoEstacion, int biciId) {
     Estacion* estacion = tablaEstaciones.buscar(codigoEstacion);
@@ -226,12 +213,7 @@ void Sistema::devolverBicicleta(string codigoEstacion, int biciId) {
     }
 }
 
-/*
-  Complejidad temporal: O(h+Q) en el peor caso, suponiendo búsqueda promedio O(1) en la tabla hash 
-  el ABB permite localizar la bicicleta devuelta por su ID, y la tabla hash permite localizar
-  la estación de destino. La cola respeta el orden de llegada de los usuarios, 
-  aunque su implementación actual con un vector puede hacer que desencolar cueste O(Q)
-*/
+
 
 void Sistema::validarEstacion(Estacion* estacion) {
     if (estacion == nullptr) {

@@ -144,22 +144,7 @@ void NodoABB::destruirNodo() {
     delete this;
 }
 
-/*
-Si las bicicletas se cargan ordenadas por ID creciente, el árbol binario de búsqueda queda degenerado,
-ya que cada nuevo ID es mayor que los anteriores y se inserta como hijo derecho del último nodo.
 
-Por ejemplo, si insertamos las bicicletas con ID 10, 20, 30, 40 y 50, el árbol tendrá una altura
-de 5 niveles. Para buscar la bicicleta con ID 50 será necesario recorrer los cinco nodos. 
-En general, la búsqueda puede tener un costo de O(n).
-
-En cambio, si insertamos los mismos ID en un orden que distribuya mejor los nodos,
- por ejemplo 30, 20, 40, 10 y 50, obtenemos un árbol de 3 niveles. 
- Buscar la bicicleta 50 requiere visitar solo tres nodos.
-
-El método `insertarNodo()` es el mismo en ambos casos: la diferencia se debe al orden de inserción.
-Como nuestro árbol no se reequilibra automáticamente, insertar los datos ordenados 
-puede aumentar su altura y empeorar el costo de búsqueda.
-*/
 
 NodoABB* NodoABB::eliminarNodo(int biciId) {
     int idActual = bicicleta.getBiciId();
@@ -203,9 +188,7 @@ NodoABB* NodoABB::eliminarNodo(int biciId) {
 
         bicicleta = *(sucesor->getBicicleta());
 
-        derecho = derecho->eliminarNodo(
-            sucesor->getBicicleta()->getBiciId()
-        );
+        derecho = derecho->eliminarNodo(sucesor->getBicicleta()->getBiciId());
     }
 
     return this;
