@@ -39,6 +39,14 @@ int Bicicleta::getKilometros() {
     return kilometros;
 }
 
+void Bicicleta::mostrarInformacion() {
+    cout << "ID: " << biciId << endl;
+    cout << "Estacion: " << codigoEstacion << endl;
+    cout << "Tipo: " << tipo << endl;
+    cout << "Estado: " << estado << endl;
+    cout << "Kilometros: " << kilometros << endl;
+}
+
 int Bicicleta::getPrioridad(){
     return prioridad;
 }

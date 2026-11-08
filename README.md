@@ -55,7 +55,7 @@ Se recorre el árbol para comprobar los kilómetros de cada bicicleta. Se utiliz
 **Complejidad temporal:**
 
 - Buscar la estación en la tabla hash: O(1) promedio.
-- Buscar una bicicleta disponible en el ABB: O(h) en el peor caso.
+- Buscar una bicicleta disponible en el ABB: O(B) en el peor caso.
 - Encolar un usuario: O(1) amortizado, sin considerar el costo ocasional de redimensionamiento del vector.
 - Desencolar un usuario: O(Q), porque la implementación utiliza un vector y elimina el elemento de la posición cero.
 - Buscar la bicicleta devuelta en el ABB: O(h) en el peor caso.

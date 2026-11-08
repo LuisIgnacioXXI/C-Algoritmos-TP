@@ -78,11 +78,8 @@ void NodoABB::listarInorderNodo() {
     if (izquierdo != nullptr) {
         izquierdo->listarInorderNodo();
     }
-    cout << "ID: " << bicicleta.getBiciId() << endl;
-    cout << "Estacion: " << bicicleta.getCodigoEstacion() << endl;
-    cout << "Tipo: " << bicicleta.getTipo() << endl;
-    cout << "Estado: " << bicicleta.getEstado() << endl;
-    cout << "Kilometros: " << bicicleta.getKilometros() << endl;
+    bicicleta.mostrarInformacion();
+    cout << endl;
     if (derecho != nullptr) {
         derecho->listarInorderNodo();
     }
@@ -205,11 +202,7 @@ bool NodoABB::listarPorKilometrosNodo(int kilometrosMinimos) {
     }
     
     if (bicicleta.getKilometros() > kilometrosMinimos) {
-        cout << "ID: " << bicicleta.getBiciId() << endl;
-        cout << " | Estacion: " << bicicleta.getCodigoEstacion() << endl;
-        cout << " | Tipo: " << bicicleta.getTipo() << endl; 
-        cout << " | Estado: " << bicicleta.getEstado() << endl;
-        cout << " | Kilometros: " << bicicleta.getKilometros() << endl;
+        bicicleta.mostrarInformacion();
         cout << endl;
 
         encontrado = true;

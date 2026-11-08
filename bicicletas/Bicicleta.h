@@ -1,6 +1,7 @@
 #ifndef BICICLETA_H
 #define BICICLETA_H
 
+#include <iostream>
 #include <string>
 using namespace std;
 
@@ -25,6 +26,7 @@ class Bicicleta {
         string getTipo();
         string getEstado();
         int getKilometros();
+        void mostrarInformacion();
 
         int getPrioridad();
 
