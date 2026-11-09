@@ -1,5 +1,7 @@
 #include "Grafo.h"
 #include <iostream>
+#include "Vector.h"
+#include "Cola.h"
 
 Grafo::Grafo() : estaciones(nullptr) {}
 
@@ -20,7 +22,7 @@ void Grafo::liberarAdyacentes(NodoAdyacente* nodo) {
     }
 }
 
-Grafo::NodoEstacion* Grafo::buscarNodo(const string& codigo) {
+Grafo::NodoEstacion* Grafo::buscarNodo(string codigo) {
     NodoEstacion* actual = estaciones;
 
     while (actual != nullptr) {
@@ -32,19 +34,23 @@ Grafo::NodoEstacion* Grafo::buscarNodo(const string& codigo) {
     return nullptr;
 }
 
-bool Grafo::agregarEstacion(const string& codigo) {
+bool Grafo::agregarEstacion(string codigo) {
     if (buscarNodo(codigo) != nullptr) {
+        cout << "No se puede agregar: la estacion " << codigo << " ya existe" << endl;
         return false;
     }
     NodoEstacion* nueva = new NodoEstacion(codigo);
     nueva->siguiente = estaciones;
     estaciones = nueva;
 
+    cout << "Estacion " << codigo << " agregada correctamente" << endl;
+
     return true;
 }
 
-bool Grafo::agregarConexion(const string& origen, const string& destino) {
+bool Grafo::agregarConexion(string origen, string destino) {
     if (origen == destino) {
+        cout << "No se puede conectar una estacion consigo misma" << endl;
         return false;
     }
 
@@ -52,12 +58,14 @@ bool Grafo::agregarConexion(const string& origen, const string& destino) {
     NodoEstacion* nodoDestino = buscarNodo(destino);
 
     if (nodoOrigen == nullptr || nodoDestino == nullptr) {
+        cout << "No se puede agregar la conexion: alguna estacion no existe" << endl;
         return false;
     }
 
     NodoAdyacente* actual = nodoOrigen->adyacentes;
     while (actual != nullptr) {
         if (actual->codigoEstacion == destino) {
+            cout << "La conexion entre las estaciones ya existe" << endl;
             return false;
         }
         actual = actual->siguiente;
@@ -70,6 +78,8 @@ bool Grafo::agregarConexion(const string& origen, const string& destino) {
     NodoAdyacente* nuevaDestino = new NodoAdyacente(origen);
     nuevaDestino->siguiente = nodoDestino->adyacentes;
     nodoDestino->adyacentes = nuevaDestino;
+
+    cout << "Conexion agregada correctamente" << endl;
 
     return true;
 }
@@ -96,10 +106,10 @@ void Grafo::mostrarConexiones() {
     }
 }
 
-void Grafo::caminoMasCorto(const string& origen,
-                           const string& destino) {
-    if (buscarNodo(origen) == nullptr ||
-        buscarNodo(destino) == nullptr) {
+void Grafo::caminoMasCorto(string origen, string destino) {
+
+    // 1. Verificar que existan las estaciones
+    if (buscarNodo(origen) == nullptr || buscarNodo(destino) == nullptr) {
         cout << "Error: alguna estacion no existe en el grafo" << endl;
         return;
     }
@@ -110,51 +120,38 @@ void Grafo::caminoMasCorto(const string& origen,
         return;
     }
 
-    int cantidad = 0;
-    NodoEstacion* actual = estaciones;
+    // 2. Crear las estructuras necesarias para el BFS
+    Cola<string> cola;
+    Vector<string> visitadas;
+    Vector<string> predecesoras;
 
-    while (actual != nullptr) {
-        cantidad++;
-        actual = actual->siguiente;
-    }
-
-    string* visitadas = new string[cantidad];
-    string* predecesoras = new string[cantidad];
-    string* cola = new string[cantidad];
-
-    int inicio = 0;
-    int fin = 0;
-    int cantidadVisitadas = 0;
-
-    cola[fin++] = origen;
-    visitadas[cantidadVisitadas] = origen;
-    predecesoras[cantidadVisitadas] = "";
-    cantidadVisitadas++;
+    // 3. Comenzar desde la estacion de origen
+    cola.encolar(origen);
+    visitadas.agregar(origen);
+    predecesoras.agregar("");
 
     bool encontrado = false;
 
-    while (inicio < fin && !encontrado) {
-        string codigoActual = cola[inicio++];
-        NodoEstacion* nodoActual = buscarNodo(codigoActual);
+    // 4. Recorrer las estaciones utilizando BFS
+    while (!cola.vacia() && !encontrado) {
 
-        NodoAdyacente* vecino = nodoActual->adyacentes;
+        string codigoActual = cola.frente();
+        cola.desencolar();
+
+        NodoEstacion* actual = buscarNodo(codigoActual);
+        NodoAdyacente* vecino = actual->adyacentes;
 
         while (vecino != nullptr && !encontrado) {
-            bool yaVisitada = false;
 
-            for (int i = 0; i < cantidadVisitadas; i++) {
-                if (visitadas[i] == vecino->codigoEstacion) {
-                    yaVisitada = true;
-                    break;
-                }
-            }
+            // Comprobar si el vecino ya fue visitado
+            if (visitadas.buscarPosicion(vecino->codigoEstacion) == -1) {
 
-            if (!yaVisitada) {
-                visitadas[cantidadVisitadas] = vecino->codigoEstacion;
-                predecesoras[cantidadVisitadas] = codigoActual;
-                cantidadVisitadas++;
+                // Registrar el vecino y desde donde llegamos
+                visitadas.agregar(vecino->codigoEstacion);
+                predecesoras.agregar(codigoActual);
 
-                cola[fin++] = vecino->codigoEstacion;
+                // Agregarlo a la cola para visitarlo despues
+                cola.encolar(vecino->codigoEstacion);
 
                 if (vecino->codigoEstacion == destino) {
                     encontrado = true;
@@ -165,33 +162,31 @@ void Grafo::caminoMasCorto(const string& origen,
         }
     }
 
+    // 5. Reconstruir y mostrar el camino
     if (encontrado) {
-        string* camino = new string[cantidad];
-        int longitud = 0;
-        string codigo = destino;
 
-        while (codigo != "") {
-            camino[longitud++] = codigo;
+        Vector<string> camino;
+        string codigoActual = destino;
 
-            if (codigo == origen) {
+        while (codigoActual != "") {
+
+            camino.agregar(codigoActual);
+
+            if (codigoActual == origen) {
                 break;
             }
 
-            string anterior = "";
+            // Buscar la predecesora de la estacion actual
+            int posicion = visitadas.buscarPosicion(codigoActual);
 
-            for (int i = 0; i < cantidadVisitadas; i++) {
-                if (visitadas[i] == codigo) {
-                    anterior = predecesoras[i];
-                    break;
-                }
+            if (posicion != -1) {
+                codigoActual = predecesoras[posicion];
             }
-
-            codigo = anterior;
         }
 
         cout << "Camino mas corto: ";
 
-        for (int i = longitud - 1; i >= 0; i--) {
+        for (int i = camino.getTamanio() - 1; i >= 0; i--) {
             cout << camino[i];
 
             if (i > 0) {
@@ -200,68 +195,77 @@ void Grafo::caminoMasCorto(const string& origen,
         }
 
         cout << endl;
-        cout << "Cantidad de tramos: " << longitud - 1 << endl;
-
-        delete[] camino;
+        cout << "Cantidad de tramos: " << camino.getTamanio() - 1 << endl;
     }
     else {
         cout << "No existe un camino entre " << origen << " y " << destino << endl;
     }
-
-    delete[] visitadas;
-    delete[] predecesoras;
-    delete[] cola;
 }
 
 
-bool Grafo::eliminarEstacion(const string& codigo) {
+
+
+bool Grafo::eliminarEstacion(string codigo) {
     NodoEstacion* actual = estaciones;
     NodoEstacion* anterior = nullptr;
 
+    // 1. Buscar la estacion que queremos eliminar
     while (actual != nullptr && actual->codigo != codigo) {
         anterior = actual;
         actual = actual->siguiente;
     }
 
     if (actual == nullptr) {
+        cout << "No se puede eliminar: la estacion " << codigo << " no existe" << endl;
         return false;
     }
 
+    // 2. Eliminar las conexiones que apuntan a esa estacion
     NodoEstacion* otra = estaciones;
 
     while (otra != nullptr) {
-        NodoAdyacente* vecino = otra->adyacentes;
-        NodoAdyacente* anteriorVecino = nullptr;
-
-        while (vecino != nullptr) {
-            if (vecino->codigoEstacion == codigo) {
-                if (anteriorVecino == nullptr) {
-                    otra->adyacentes = vecino->siguiente;
-                } 
-                else {
-                    anteriorVecino->siguiente = vecino->siguiente;
-                }
-
-                delete vecino;
-                break;
-            }
-
-            anteriorVecino = vecino;
-            vecino = vecino->siguiente;
-        }
-
+        eliminarAdyacencia(otra, codigo);
         otra = otra->siguiente;
     }
 
+    // 3. Quitar la estacion de la lista principal
     if (anterior == nullptr) {
         estaciones = actual->siguiente;
-    } 
+    }
     else {
         anterior->siguiente = actual->siguiente;
     }
 
+    // 4. Liberar su memoria
     liberarAdyacentes(actual->adyacentes);
     delete actual;
 
+    cout << "Estacion " << codigo << " eliminada correctamente" << endl;
+
     return true;
+}
+
+
+
+void Grafo::eliminarAdyacencia(NodoEstacion* estacion, string codigo) {
+    NodoAdyacente* actual = estacion->adyacentes;
+    NodoAdyacente* anterior = nullptr;
+
+    while (actual != nullptr) {
+        if (actual->codigoEstacion == codigo) {
+
+            if (anterior == nullptr) {
+                estacion->adyacentes = actual->siguiente;
+            }
+            else {
+                anterior->siguiente = actual->siguiente;
+            }
+
+            delete actual;
+            return;
+        }
+
+        anterior = actual;
+        actual = actual->siguiente;
+    }
 }

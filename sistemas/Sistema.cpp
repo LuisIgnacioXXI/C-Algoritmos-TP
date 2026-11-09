@@ -20,14 +20,18 @@ void Sistema::mostrarEstacion(string codigo) {
 void Sistema::agregarEstacion(Estacion* estacion) {
     validarEstacion(estacion);
     tablaEstaciones.insertar(estacion);
+    grafo.agregarEstacion(estacion->getCodigo());
 }
 
 void Sistema::eliminarEstacion(string codigo) {
     Estacion* estacion = tablaEstaciones.buscar(codigo);
     validarEstacion(estacion);
 
+    grafo.eliminarEstacion(codigo);
     tablaEstaciones.eliminar(codigo);
 }
+
+
 
 
 void Sistema::listarEstacionesOrdenadas(int criterio) {
@@ -84,6 +88,25 @@ void Sistema::listarEstacionesBajaOcupacion() {
 }
 
 
+void Sistema::agregarConexionCiclovia(string origen, string destino) {
+    Estacion* estacionOrigen = tablaEstaciones.buscar(origen);
+    Estacion* estacionDestino = tablaEstaciones.buscar(destino);
+
+    validarEstacion(estacionOrigen);
+    validarEstacion(estacionDestino);
+
+    grafo.agregarConexion(origen, destino);
+}
+
+
+void Sistema::mostrarCiclovias() {
+    grafo.mostrarConexiones();
+}
+
+
+void Sistema::mostrarCaminoMasCorto(string origen, string destino) {
+    grafo.caminoMasCorto(origen, destino);
+}
 
 
 

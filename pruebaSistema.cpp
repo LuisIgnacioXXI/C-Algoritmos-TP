@@ -172,14 +172,43 @@ int main() {
         }
 
         cout << "¿El taller quedo vacio? " << (taller.vacio() ? "Si" : "No") << endl;
+
+        cout << endl;
+        cout << "===== PRUEBAS DE GRAFO EN SISTEMA =====" << endl;
+
+        // Agregar conexiones de ciclovias
+        sistema.agregarConexionCiclovia("PLZ", "CAB");
+        sistema.agregarConexionCiclovia("PLZ", "PAL");
+        sistema.agregarConexionCiclovia("CAB", "ABC");
+        sistema.agregarConexionCiclovia("PAL", "ABC");
+
+        cout << endl;
+        cout << "Conexiones entre estaciones:" << endl;
+        sistema.mostrarCiclovias();
+
+        cout << endl;
+        cout << "Camino mas corto entre PLZ y ABC:" << endl;
+        sistema.mostrarCaminoMasCorto("PLZ", "ABC");
+
+        cout << endl;
+        cout << "Camino entre PLZ y ESP:" << endl;
+        sistema.mostrarCaminoMasCorto("PLZ", "ESP");
+
+        cout << endl;
+        cout << "Eliminar la estacion CAB:" << endl;
+        sistema.eliminarEstacion("CAB");
+
+        cout << endl;
+        cout << "Conexiones despues de eliminar CAB:" << endl;
+        sistema.mostrarCiclovias();
     }
 
     // ==================================================
     // LIBERACION DE MEMORIA
     // ==================================================
 
-    // La tabla hash ya destruyo sus nodos.
-    // Liberamos las estaciones creadas dinamicamente.
+    // La tabla hash ya destruyo sus nodos
+    // Liberamos las estaciones creadas dinamicamente
 
     delete estacion1;
     delete estacion2;
@@ -189,6 +218,6 @@ int main() {
     delete estacionEspera;
 
     cout << "===== FIN DE LAS PRUEBAS =====" << endl;
-
+    
     return 0;
 }

@@ -51,6 +51,16 @@ class Vector {
             return tamanio;
         }
 
+        int buscarPosicion(T elemento) {
+            for (int i = 0; i < tamanio; i++) {
+                if (datos[i] == elemento) {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
         // Operador corchetes para poder acceder a los elementos como un arreglo común (v[i])
         T& operator[](int indice) {
             return datos[indice];

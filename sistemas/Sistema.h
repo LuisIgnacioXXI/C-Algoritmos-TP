@@ -15,6 +15,7 @@ class Sistema {
         ArbolBicicletas arbolBicicletas;
         TallerReparaciones taller;
         TablaHashEstaciones tablaEstaciones;
+        Grafo grafo;
 
     public:
         Sistema();
@@ -24,6 +25,10 @@ class Sistema {
         void eliminarEstacion(string codigo);
         void listarEstacionesOrdenadas(int criterio);
         void listarEstacionesBajaOcupacion();
+
+        void agregarConexionCiclovia(string origen, string destino);
+        void mostrarCiclovias();
+        void mostrarCaminoMasCorto(string origen, string destino);
 
 
 

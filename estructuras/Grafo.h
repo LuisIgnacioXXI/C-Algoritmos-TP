@@ -5,40 +5,47 @@
 using namespace std;
 
 class Grafo {
-private:
-    struct NodoAdyacente {
-        string codigoEstacion;
-        NodoAdyacente* siguiente;
+    private:
+        struct NodoAdyacente {
+            string codigoEstacion;
+            NodoAdyacente* siguiente;
 
-        NodoAdyacente(const string& codigo)
-            : codigoEstacion(codigo), siguiente(nullptr) {}
-    };
+            NodoAdyacente(string codigo) {
+                this->codigoEstacion = codigo;
+                this->siguiente = nullptr;
+            }
+        };
 
-    struct NodoEstacion {
-        string codigo;
-        NodoAdyacente* adyacentes;
-        NodoEstacion* siguiente;
+        struct NodoEstacion {
+            string codigo;
+            NodoAdyacente* adyacentes;
+            NodoEstacion* siguiente;
 
-        NodoEstacion(const string& cod)
-            : codigo(cod), adyacentes(nullptr), siguiente(nullptr) {}
-    };
+            NodoEstacion(string codigo) {
+                this->codigo = codigo;
+                this->adyacentes = nullptr;
+                this->siguiente = nullptr;
+            }
+        };
 
-    NodoEstacion* estaciones;
+        NodoEstacion* estaciones;
 
-    NodoEstacion* buscarNodo(const string& codigo);
-    void liberarAdyacentes(NodoAdyacente* nodo);
+        NodoEstacion* buscarNodo(string codigo);
+        void liberarAdyacentes(NodoAdyacente* nodo);
 
-public:
-    Grafo();
-    ~Grafo();
+    public:
+        Grafo();
+        ~Grafo();
 
-    bool agregarEstacion(const string& codigo);
-    bool agregarConexion(const string& origen, const string& destino);
+        bool agregarEstacion(string codigo);
+        bool agregarConexion(string origen, string destino);
 
-    void mostrarConexiones();
-    void caminoMasCorto(const string& origen, const string& destino);
+        void mostrarConexiones();
+        void caminoMasCorto(string origen, string destino);
 
-    bool eliminarEstacion(const string& codigo);
+        bool eliminarEstacion(string codigo);
+        void eliminarAdyacencia(NodoEstacion* estacion, string codigo);
 };
 
 #endif
+

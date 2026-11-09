@@ -8,16 +8,29 @@ Con los 5 datos de prueba (`PLZ`, `ABC`, `CAB`, `PAL` y `XYZ`), se registró **1
 
 Instrucciones para compilar:
 
-### Pruebas de tabla hash:
+### Pruebas de Tabla Hash:
 g++ -std=c++17 -Wall -Wextra pruebaTablaHash.cpp estaciones/Estacion.cpp estructuras/TablaHashEstaciones.cpp estructuras/NodoHash.cpp -o pruebaTablaHash.exe
 
 .\pruebaTablaHash.exe
 
+### Pruebas de Grafo:
+
+g++ -std=c++17 -Wall -Wextra pruebaGrafo.cpp estructuras/Grafo.cpp -o pruebaGrafo.exe
+
+.\pruebaGrafo.exe
+
 
 ### Pruebas de Sistema:
-g++ -std=c++17 -Wall -Wextra pruebaSistema.cpp sistemas/Sistema.cpp estaciones/Estacion.cpp estructuras/TablaHashEstaciones.cpp estructuras/NodoHash.cpp estructuras/ArbolBicicletas.cpp estructuras/NodoABB.cpp bicicletas/Bicicleta.cpp viajes/Viaje.cpp talleres/TallerReparaciones.cpp -o pruebaSistema.exe
+
+g++ -std=c++17 -Wall -Wextra pruebaSistema.cpp sistemas/Sistema.cpp estaciones/Estacion.cpp estructuras/TablaHashEstaciones.cpp estructuras/NodoHash.cpp estructuras/ArbolBicicletas.cpp estructuras/NodoABB.cpp bicicletas/Bicicleta.cpp viajes/Viaje.cpp talleres/TallerReparaciones.cpp estructuras/Grafo.cpp -o pruebaSistema.exe
 
 .\pruebaSistema.exe
+
+
+### Pruebas de Arbol Bicicletas:
+g++ -std=c++17 -Wall -Wextra pruebaArbol.cpp estructuras/ArbolBicicletas.cpp estructuras/NodoABB.cpp bicicletas/Bicicleta.cpp -o pruebaArbol.exe
+
+.\pruebaArbol.exe
 
 
 
