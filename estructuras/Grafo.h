@@ -37,13 +37,13 @@ class Grafo {
         Grafo();
         ~Grafo();
 
-        bool agregarEstacion(string codigo);
-        bool agregarConexion(string origen, string destino);
+        void agregarEstacion(string codigo);
+        void agregarConexion(string origen, string destino);
 
         void mostrarConexiones();
         void caminoMasCorto(string origen, string destino);
 
-        bool eliminarEstacion(string codigo);
+        void eliminarEstacion(string codigo);
         void eliminarAdyacencia(NodoEstacion* estacion, string codigo);
 };
 

@@ -34,24 +34,22 @@ Grafo::NodoEstacion* Grafo::buscarNodo(string codigo) {
     return nullptr;
 }
 
-bool Grafo::agregarEstacion(string codigo) {
+void Grafo::agregarEstacion(string codigo) {
     if (buscarNodo(codigo) != nullptr) {
         cout << "No se puede agregar: la estacion " << codigo << " ya existe" << endl;
-        return false;
+        return;
     }
     NodoEstacion* nueva = new NodoEstacion(codigo);
     nueva->siguiente = estaciones;
     estaciones = nueva;
 
     cout << "Estacion " << codigo << " agregada correctamente" << endl;
-
-    return true;
 }
 
-bool Grafo::agregarConexion(string origen, string destino) {
+void Grafo::agregarConexion(string origen, string destino) {
     if (origen == destino) {
         cout << "No se puede conectar una estacion consigo misma" << endl;
-        return false;
+        return;
     }
 
     NodoEstacion* nodoOrigen = buscarNodo(origen);
@@ -59,14 +57,14 @@ bool Grafo::agregarConexion(string origen, string destino) {
 
     if (nodoOrigen == nullptr || nodoDestino == nullptr) {
         cout << "No se puede agregar la conexion: alguna estacion no existe" << endl;
-        return false;
+        return;
     }
 
     NodoAdyacente* actual = nodoOrigen->adyacentes;
     while (actual != nullptr) {
         if (actual->codigoEstacion == destino) {
             cout << "La conexion entre las estaciones ya existe" << endl;
-            return false;
+            return;
         }
         actual = actual->siguiente;
     }
@@ -80,8 +78,6 @@ bool Grafo::agregarConexion(string origen, string destino) {
     nodoDestino->adyacentes = nuevaDestino;
 
     cout << "Conexion agregada correctamente" << endl;
-
-    return true;
 }
 
 void Grafo::mostrarConexiones() {
@@ -205,7 +201,7 @@ void Grafo::caminoMasCorto(string origen, string destino) {
 
 
 
-bool Grafo::eliminarEstacion(string codigo) {
+void Grafo::eliminarEstacion(string codigo) {
     NodoEstacion* actual = estaciones;
     NodoEstacion* anterior = nullptr;
 
@@ -217,7 +213,7 @@ bool Grafo::eliminarEstacion(string codigo) {
 
     if (actual == nullptr) {
         cout << "No se puede eliminar: la estacion " << codigo << " no existe" << endl;
-        return false;
+        return;
     }
 
     // 2. Eliminar las conexiones que apuntan a esa estacion
@@ -241,8 +237,6 @@ bool Grafo::eliminarEstacion(string codigo) {
     delete actual;
 
     cout << "Estacion " << codigo << " eliminada correctamente" << endl;
-
-    return true;
 }
 
 
