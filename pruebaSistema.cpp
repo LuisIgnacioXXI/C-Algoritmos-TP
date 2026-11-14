@@ -200,21 +200,9 @@ int main() {
         sistema.mostrarCiclovias();
     }
 
-    // ==================================================
-    // LIBERACION DE MEMORIA
-    // ==================================================
-
-    // La tabla hash ya destruyo sus nodos
-    // Liberamos las estaciones creadas dinamicamente
-
-    delete estacion1;
-    delete estacion2;
-    delete estacion3;
-    delete estacion4;
-    delete estacion5;
-    delete estacionEspera;
-
     cout << "===== FIN DE LAS PRUEBAS =====" << endl;
     
     return 0;
 }
+
+

@@ -16,6 +16,7 @@ TablaHashEstaciones::~TablaHashEstaciones() {
 
         while (actual != nullptr) {
             NodoHash* siguiente = actual->getSiguiente();
+            delete actual->getEstacion();
             delete actual;
             actual = siguiente;
         }
@@ -95,7 +96,7 @@ void TablaHashEstaciones::eliminar(string codigo) {
         else {
             anterior->setSiguiente(actual->getSiguiente());
         }
-
+        delete actual->getEstacion();
         delete actual;
         cantidad--;
     }

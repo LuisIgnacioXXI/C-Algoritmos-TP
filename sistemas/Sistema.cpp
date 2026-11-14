@@ -19,6 +19,10 @@ void Sistema::mostrarEstacion(string codigo) {
 
 void Sistema::agregarEstacion(Estacion* estacion) {
     validarEstacion(estacion);
+    if (tablaEstaciones.buscar(estacion->getCodigo()) != nullptr) {
+        cout << "Ya existe una estacion con ese codigo" << endl;
+        return;
+    }
     tablaEstaciones.insertar(estacion);
     grafo.agregarEstacion(estacion->getCodigo());
 }
@@ -219,6 +223,7 @@ void Sistema::devolverBicicleta(string codigoEstacion, int biciId) {
 
     if (bicicleta->getEstado() == "Averiada") {
         bicicleta->setPrestada(false);
+        ingresarBicicletaAlTaller(*bicicleta);
         cout << "La bicicleta fue devuelta, pero esta averiada" << endl;
         return;
     }

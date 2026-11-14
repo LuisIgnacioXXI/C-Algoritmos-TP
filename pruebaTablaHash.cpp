@@ -85,10 +85,10 @@ int main() {
         cout << "Cantidad obtenida: " << tabla.getCantidad() << endl;
     }
 
-    delete estacion1;
-    delete estacion2;
-    delete estacion3;
 
+
+
+    
     cout << "===== PRUEBA 8: ELIMINAR UNICO NODO =====" << endl;
 
     Estacion* estacion4 = new Estacion("XYZ", "EstacionXYZ", "Belgrano", 30, 10);
@@ -110,7 +110,9 @@ int main() {
         }
     }
 
-    delete estacion4;
+
+
+
 
     cout << "===== PRUEBA 9: REUTILIZAR POSICION =====" << endl;
 
@@ -140,8 +142,9 @@ int main() {
         cout << "Colisiones registradas: " << tabla.getColisiones() << endl;
     }
 
-    delete estacion5;
-    delete estacion6;
+    
+
+
 
     cout << "===== PRUEBA 10: ESTADISTICAS DE LA TABLA =====" << endl;
 
@@ -165,13 +168,40 @@ int main() {
         cout << "Factor de carga final: " << tabla.getFactorCarga() << endl;
     }
 
-    delete estacion7;
-    delete estacion8;
-    delete estacion9;
-    delete estacion10;
-    delete estacion11;
+
+
+
+
+    cout << "===== PRUEBA 11: INSERTAR ESTACIONES DUPLICADAS =====" << endl;
+
+    Estacion* estacion12 = new Estacion("PLZ", "PlazaDeMayo", "Monserrat", 30, 12);
+    Estacion* estacion13 = new Estacion("PLZ", "OtraPlaza", "Centro", 40, 20);
+
+    {
+        TablaHashEstaciones tabla;
+
+        tabla.insertar(estacion12);
+        tabla.insertar(estacion13);
+
+        cout << "Cantidad esperada: 1" << endl;
+        cout << "Cantidad obtenida: " << tabla.getCantidad() << endl;
+
+        Estacion* encontrada = tabla.buscar("PLZ");
+
+        if (encontrada != nullptr) {
+            cout << "Estacion encontrada: " << encontrada->getNombre() << endl;
+        }
+
+        // La segunda estacion no fue insertada
+        delete estacion13;
+    }
+
+
+
 
     cout << "===== FIN DE LAS PRUEBAS =====" << endl;
 
     return 0;
 }
+
+

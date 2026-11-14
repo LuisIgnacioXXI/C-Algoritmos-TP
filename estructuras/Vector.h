@@ -1,6 +1,9 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+#include <stdexcept>
+using namespace std;
+
 template <typename T>
 
 class Vector {
@@ -63,6 +66,9 @@ class Vector {
 
         // Operador corchetes para poder acceder a los elementos como un arreglo común (v[i])
         T& operator[](int indice) {
+            if (indice < 0 || indice >= tamanio) {
+                throw out_of_range("Indice fuera de rango");
+            }
             return datos[indice];
         }
 

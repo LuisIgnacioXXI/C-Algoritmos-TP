@@ -2,6 +2,9 @@
 #define COLA_H
 
 #include "Vector.h"
+#include <stdexcept>
+
+using namespace std;
 
 template <typename T>
 
@@ -23,6 +26,9 @@ class Cola {
         }
 
         T frente() {
+            if (vacia()) {
+                throw runtime_error("No se puede consultar el frente de una cola vacia");
+            }
             return elementos[0];
         }
 
