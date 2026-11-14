@@ -45,6 +45,11 @@ class Sistema {
         void devolverBicicleta(string codigoEstacion, int biciId);
         void validarEstacion(Estacion* estacion);
         void validarBicicleta(Bicicleta* bicicleta);
+
+
+        void ingresarBicicletaAlTaller(Bicicleta bicicleta);
+        Bicicleta extraerBicicletaMasUrgente();
+        bool tallerEstaVacio();
 };
 
 #endif

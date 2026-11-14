@@ -3,7 +3,6 @@
 
 #include "estaciones/Estacion.h"
 #include "sistemas/Sistema.h"
-#include "talleres/TallerReparaciones.h"
 
 using namespace std;
 
@@ -137,13 +136,11 @@ int main() {
 
         cout << "===== PRUEBA 8: TALLER DE REPARACIONES =====" << endl;
 
-        TallerReparaciones taller;
-
         cout << "--- PRUEBA DE VALIDACION ---" << endl;
 
         try {
             Bicicleta biciOK(301, "PLZ", "Mecanica", "OK", 500);
-            taller.insertarBicicleta(biciOK);
+            sistema.ingresarBicicletaAlTaller(biciOK);
         }
         catch (runtime_error& e) {
             cout << "Error esperado: " << e.what() << endl;
@@ -155,23 +152,23 @@ int main() {
         Bicicleta bici5(303, "CAB", "Mecanica", "Averiada", 1500);
         Bicicleta bici6(304, "PAL", "Mecanica", "Averiada", 2000);
 
-        taller.insertarBicicleta(bici4);
-        taller.insertarBicicleta(bici5);
-        taller.insertarBicicleta(bici6);
+        sistema.ingresarBicicletaAlTaller(bici4);
+        sistema.ingresarBicicletaAlTaller(bici5);
+        sistema.ingresarBicicletaAlTaller(bici6);
 
         // La bicicleta electrica recibe prioridad 1 automaticamente.
         Bicicleta biciElectrica(305, "PLZ", "Electrica", "Averiada", 800);
-        taller.insertarBicicleta(biciElectrica);
+        sistema.ingresarBicicletaAlTaller(biciElectrica);
 
         cout << "--- EXTRACCION POR PRIORIDAD ---" << endl;
 
-        while (!taller.vacio()) {
-            Bicicleta bicicleta = taller.extraerMasUrgente();
+        while (!sistema.tallerEstaVacio()) {
+            Bicicleta bicicleta = sistema.extraerBicicletaMasUrgente();
 
             cout << "Bicicleta: " << bicicleta.getBiciId() << " | Prioridad: " << bicicleta.getPrioridad() << endl;
         }
 
-        cout << "¿El taller quedo vacio? " << (taller.vacio() ? "Si" : "No") << endl;
+        cout << "¿El taller quedo vacio? " << (sistema.tallerEstaVacio() ? "Si" : "No") << endl;
 
         cout << endl;
         cout << "===== PRUEBAS DE GRAFO EN SISTEMA =====" << endl;

@@ -218,6 +218,7 @@ void Sistema::devolverBicicleta(string codigoEstacion, int biciId) {
     bicicleta->setCodigoEstacion(codigoEstacion);
 
     if (bicicleta->getEstado() == "Averiada") {
+        bicicleta->setPrestada(false);
         cout << "La bicicleta fue devuelta, pero esta averiada" << endl;
         return;
     }
@@ -249,3 +250,18 @@ void Sistema::validarBicicleta(Bicicleta* bicicleta){
         throw runtime_error("No se encontró la bicicleta");
     }
 }
+
+
+
+void Sistema::ingresarBicicletaAlTaller(Bicicleta bicicleta) {
+    taller.insertarBicicleta(bicicleta);
+}
+
+Bicicleta Sistema::extraerBicicletaMasUrgente() {
+    return taller.extraerMasUrgente();
+}
+
+bool Sistema::tallerEstaVacio(){
+    return taller.vacio();
+}
+

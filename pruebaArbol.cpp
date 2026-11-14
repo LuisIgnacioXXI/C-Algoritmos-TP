@@ -8,10 +8,10 @@ int main() {
     ArbolBicicletas arbol;
 
     // Crear bicicletas de prueba
-    Bicicleta b1(30, "PLZ", "Electrica", "Disponible", 1200);
+    Bicicleta b1(30, "PLZ", "Electrica", "OK", 1200);
     Bicicleta b2(20, "CAB", "Mecanica", "Averiada", 2500);
-    Bicicleta b3(40, "PAL", "Electrica", "Disponible", 1800);
-    Bicicleta b4(10, "XYZ", "Mecanica", "Disponible", 3000);
+    Bicicleta b3(40, "PAL", "Electrica", "OK", 1800);
+    Bicicleta b4(10, "XYZ", "Mecanica", "OK", 3000);
     Bicicleta b5(50, "ABC", "Mecanica", "Averiada", 500);
 
     // 1. Insertar bicicletas
@@ -83,7 +83,7 @@ int main() {
     // 12. Intentar insertar un ID duplicado
     cout << "=== INSERTAR BICICLETA CON ID DUPLICADO (50) ===" << endl;
 
-    Bicicleta duplicada(50, "PLZ", "Electrica", "Disponible", 900);
+    Bicicleta duplicada(50, "PLZ", "Electrica", "OK", 900);
     arbol.insertar(duplicada);
 
     cout << "Arbol despues de intentar insertar el duplicado:" << endl;
