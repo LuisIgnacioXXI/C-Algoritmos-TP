@@ -18,14 +18,15 @@ int main() {
         cout << "===== PRUEBA 1: TABLA VACIA =====" << endl;
 
         cout << "Cantidad inicial: " << tabla.getCantidad() << endl;
-
         if (tabla.buscar("XXX") == nullptr) {
             cout << "Correcto: no se encontro XXX" << endl;
         }
-
         tabla.eliminar("XXX");
-
         cout << "Cantidad despues de eliminar XXX: " << tabla.getCantidad() << endl;
+
+        cout << endl;
+
+
 
         cout << "===== PRUEBA 2: INSERTAR ESTACIONES CON COLISIONES =====" << endl;
 
@@ -37,10 +38,13 @@ int main() {
         cout << "Cantidad obtenida: " << tabla.getCantidad() << endl;
         cout << "Colisiones registradas: " << tabla.getColisiones() << endl;
 
+        cout << endl;
+
+
+
         cout << "===== PRUEBA 3: BUSCAR ESTACIONES =====" << endl;
 
         Estacion* encontrada = tabla.buscar("ABC");
-
         if (encontrada != nullptr) {
             encontrada->mostrarInformacion();
         }
@@ -51,6 +55,10 @@ int main() {
             cout << "Correcto: XXX no existe en la tabla" << endl;
         }
 
+        cout << endl;
+
+
+
         cout << "===== PRUEBA 4: ELIMINAR PRIMER NODO =====" << endl;
 
         tabla.eliminar("BAC");
@@ -59,6 +67,11 @@ int main() {
         cout << "Cantidad obtenida: " << tabla.getCantidad() << endl;
         cout << "BAC encontrada: " << (tabla.buscar("BAC") != nullptr) << endl;
         cout << "ACB encontrada: " << (tabla.buscar("ACB") != nullptr) << endl;
+
+
+        cout << endl;
+
+
 
         cout << "===== PRUEBA 5: ELIMINAR NODO INTERMEDIO =====" << endl;
 
@@ -69,6 +82,10 @@ int main() {
         cout << "ACB encontrada: " << (tabla.buscar("ACB") != nullptr) << endl;
         cout << "ABC encontrada: " << (tabla.buscar("ABC") != nullptr) << endl;
 
+        cout << endl;
+
+
+
         cout << "===== PRUEBA 6: ELIMINAR ULTIMO NODO =====" << endl;
 
         tabla.eliminar("ABC");
@@ -77,12 +94,18 @@ int main() {
         cout << "Cantidad obtenida: " << tabla.getCantidad() << endl;
         cout << "Factor de carga: " << tabla.getFactorCarga() << endl;
 
+        cout << endl;
+
+
+
         cout << "===== PRUEBA 7: ELIMINAR CODIGO INEXISTENTE =====" << endl;
 
         tabla.eliminar("XXX");
 
         cout << "Cantidad esperada: 0" << endl;
         cout << "Cantidad obtenida: " << tabla.getCantidad() << endl;
+
+        cout << endl;
     }
 
 
@@ -108,6 +131,8 @@ int main() {
         if (tabla.buscar("XYZ") == nullptr) {
             cout << "Correcto: XYZ ya no existe" << endl;
         }
+
+        cout << endl;
     }
 
 
@@ -140,6 +165,8 @@ int main() {
         }
 
         cout << "Colisiones registradas: " << tabla.getColisiones() << endl;
+
+        cout << endl;
     }
 
     
@@ -166,6 +193,8 @@ int main() {
         cout << "Estaciones insertadas: " << tabla.getCantidad() << endl;
         cout << "Colisiones registradas: " << tabla.getColisiones() << endl;
         cout << "Factor de carga final: " << tabla.getFactorCarga() << endl;
+
+        cout << endl;
     }
 
 
@@ -194,6 +223,8 @@ int main() {
 
         // La segunda estacion no fue insertada
         delete estacion13;
+
+        cout << endl;
     }
 
 

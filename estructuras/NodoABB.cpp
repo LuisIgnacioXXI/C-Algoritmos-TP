@@ -157,13 +157,13 @@ NodoABB* NodoABB::eliminarNodo(int biciId) {
         }
     } 
     else {
-        // CASO 1: el nodo es una hoja.
+        // CASO 1: el nodo es una hoja
         if (izquierdo == nullptr && derecho == nullptr) {
             delete this;
             return nullptr;
         }
 
-        // CASO 2: el nodo tiene solamente un hijo.
+        // CASO 2: el nodo tiene solamente un hijo
         if (izquierdo == nullptr) {
             NodoABB* hijo = derecho;
             delete this;
@@ -176,7 +176,7 @@ NodoABB* NodoABB::eliminarNodo(int biciId) {
             return hijo;
         }
 
-        // CASO 3: el nodo tiene dos hijos.
+        // CASO 3: el nodo tiene dos hijos
         NodoABB* sucesor = derecho;
 
         while (sucesor->izquierdo != nullptr) {

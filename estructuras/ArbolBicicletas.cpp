@@ -9,7 +9,7 @@ ArbolBicicletas::ArbolBicicletas() {
 }
 
 ArbolBicicletas::~ArbolBicicletas() {
-    if (raiz != nullptr) {
+    if (!estaVacio()) {
         raiz->destruirNodo();
         raiz = nullptr;
     }

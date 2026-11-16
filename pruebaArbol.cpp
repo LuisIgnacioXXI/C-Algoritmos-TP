@@ -110,7 +110,7 @@ int main() {
 
 
 
-    // El destructor del arbol libera los nodos restantes.
+    // El destructor del arbol libera los nodos restantes
     return 0;
 }
 

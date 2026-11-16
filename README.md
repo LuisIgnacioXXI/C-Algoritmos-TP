@@ -69,7 +69,7 @@ Se recorre el árbol para comprobar los kilómetros de cada bicicleta. Se utiliz
 
 - Buscar la estación en la tabla hash: O(1) promedio.
 - Buscar una bicicleta disponible en el ABB: O(B) en el peor caso.
-- Encolar un usuario: O(1) amortizado, sin considerar el costo ocasional de redimensionamiento del vector.
+- Encolar un usuario: O(1) Sin considerar el costo ocasional de redimensionamiento del vector.
 - Desencolar un usuario: O(Q), porque la implementación utiliza un vector y elimina el elemento de la posición cero.
 - Buscar la bicicleta devuelta en el ABB: O(h) en el peor caso.
 
@@ -83,7 +83,7 @@ Se utiliza una tabla hash para localizar las estaciones por código y un ABB par
 - Extraer la bicicleta más urgente: O(log H).
 - Consultar si el heap está vacío: O(1).
 
-Se utiliza un heap mínimo porque permite mantener en la raíz la bicicleta con menor número de prioridad, es decir, la más urgente. La inserción y la extracción reorganizan el heap mediante intercambios entre nodos, sin necesidad de recorrer todas las bicicletas para encontrar la más urgente.
+Para el taller utilizamos una cola de prioridad. Las bicicletas se organizan según su nivel de urgencia: cuanto menor es el número, más urgente es la reparación. La estructura mantiene la bicicleta más urgente en la raíz, de manera que podemos extraerla directamente. Cuando insertamos o extraemos una bicicleta, reorganizamos los elementos para conservar ese orden.
 
 
 

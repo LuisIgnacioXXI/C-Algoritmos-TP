@@ -31,6 +31,8 @@ int main() {
         sistema.agregarEstacion(estacion5);
         sistema.agregarEstacion(estacionEspera);
 
+        cout << endl;
+
 
         // ==================================================
         // PRUEBAS DE GESTION DE ESTACIONES
@@ -38,13 +40,15 @@ int main() {
 
         cout << "===== PRUEBA 1: ORDENAR POR CAPACIDAD =====" << endl;
         sistema.listarEstacionesOrdenadas(1);
+        cout << endl;
 
         cout << "===== PRUEBA 2: ORDENAR POR BICICLETAS DISPONIBLES =====" << endl;
         sistema.listarEstacionesOrdenadas(2);
+        cout << endl;
 
         cout << "===== PRUEBA 3: ESTACIONES CON MENOS DEL 20% DE OCUPACION =====" << endl;
         sistema.listarEstacionesBajaOcupacion();
-
+        cout << endl;
 
         // ==================================================
         // PUNTO B1: CONTAR VIAJES POR ESTACION Y FECHA
@@ -61,6 +65,8 @@ int main() {
 
         cout << "Cantidad de viajes desde PLZ entre las fechas indicadas: " << cantidad << endl;
 
+        cout << endl;
+
 
         // ==================================================
         // PUNTO B2: CONSULTAR VIAJES POR DNI
@@ -72,6 +78,8 @@ int main() {
 
         cout << "--- DNI SIN VIAJES ---" << endl;
         sistema.mostrarViajesPorDniUsuario(11111111);
+
+        cout << endl;
 
 
         // ==================================================
@@ -94,6 +102,8 @@ int main() {
 
         cout << "--- BICICLETAS CON MAS DE 10000 KM ---" << endl;
         sistema.listarBicicletasParaRevision(10000);
+
+        cout << endl;
 
 
         // ==================================================
@@ -128,6 +138,8 @@ int main() {
 
         cout << "--- ESTADO FINAL DE LA ESTACION ---" << endl;
         estacionEspera->mostrarInformacion();
+
+        cout << endl;
 
 
         // ==================================================
